@@ -4,8 +4,8 @@ import numpy as np
 import os
 import tensorflow
 from keras.preprocessing import image
-from math import comb
 
+print(tensorflow.__version__)
 # Zmienne opisujące obrazy
 latent_dim = 32
 height = 32
@@ -176,9 +176,9 @@ for step in range(iterations):
         print('strata przeciwna: %s: %s' % (step, a_loss))
         
         # Zapis jednego wygenerowanego obrazu
-        img = image.array_to_img(generated_images[0] * 255., scale=False)
-        img.save(os.path.join(save_dir, 'generated_frog' + str(step) + 'png'))
+        img = tensorflow.keras.utils.array_to_img(generated_images[0] * 255., scale=False)
+        img.save(os.path.join(save_dir, 'generated_frog_' + str(step) + '.png'))
 
         # Zapis jednego prawdziwego obrazu w celach porównawczych
-        img = image.array_to_img(real_images[0] * 255., scale=False)
-        img.save(os.path.join(save_dir, 'real_frog' + str(step) + 'png'))
+        img = tensorflow.keras.utils.array_to_img(real_images[0] * 255., scale=False)
+        img.save(os.path.join(save_dir, 'real_frog_' + str(step) + '.png'))
