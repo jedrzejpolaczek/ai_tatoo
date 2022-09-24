@@ -3,7 +3,7 @@ from keras import layers
 import numpy as np
 import os
 import tensorflow
-from keras.preprocessing import image
+from datetime import datetime
 
 print(tensorflow.__version__)
 # Zmienne opisujące obrazy
@@ -167,11 +167,12 @@ for step in range(iterations):
     start += batch_size
     if start > len(x_train) - batch_size:
         start = 0
-    
+
     # Okazjonalny zapis danych i generowanie wykresów (co 100 kroków algorytmu)
     if step % 100 == 0:
         gan.save_weights('gan.h5')  # Zapis wag modelu
 
+        print(step)
         print('Strata dysryminatora w kroku %s: %s' % (step, d_loss))
         print('strata przeciwna: %s: %s' % (step, a_loss))
         
@@ -182,3 +183,6 @@ for step in range(iterations):
         # Zapis jednego prawdziwego obrazu w celach porównawczych
         img = tensorflow.keras.utils.array_to_img(real_images[0] * 255., scale=False)
         img.save(os.path.join(save_dir, 'real_frog_' + str(step) + '.png'))
+    
+    now = datetime.now()
+    print(now.strftime("%H:%M:%S") + " : step: " + str(step))
